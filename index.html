@@ -13,57 +13,59 @@
 </head>
 <body>
   <main class="app">
-    <header class="hero">
+    <header class="topbar">
       <div>
-        <p class="kicker">MONEY RECONCILIATION</p>
-        <h1 contenteditable="true" id="appTitle" spellcheck="false">收支核对</h1>
-        <p class="subtitle">记录收入来源与支出去向，自动核对金额是否一致。</p>
+        <h1 id="appTitle" contenteditable="true" spellcheck="false">收支核对</h1>
+        <p>四列同屏 · 手机竖屏表格</p>
       </div>
-      <div id="topStatus" class="top-status success">
-        <span id="topStatusText">成功</span>
-        <small id="topStatusSub">收入与支出一致</small>
+      <div id="globalStatus" class="status-chip ok">
+        <strong id="globalStatusText">成功</strong>
+        <span id="globalStatusSub">已平衡</span>
       </div>
     </header>
 
-    <section class="toolbar">
-      <button id="addRowBtn" class="btn primary">＋添加行</button>
-      <button id="saveImageBtn" class="btn dark">保存图片</button>
-      <button id="backupBtn" class="btn soft">导出备份</button>
-      <label class="btn soft file-label">
-        导入备份
-        <input id="importBackupInput" type="file" accept="application/json" hidden />
-      </label>
-      <button id="toggleDensityBtn" class="btn soft">紧凑模式</button>
+    <section class="quickbar">
+      <button id="addRowBtn" class="btn primary">＋行</button>
+      <button id="saveImageBtn" class="btn dark">存图</button>
+      <button id="modeBtn" class="btn soft">纵向</button>
+      <button id="compactBtn" class="btn soft">紧凑</button>
     </section>
 
-    <section class="settings-card">
-      <div>
-        <span>显示大小</span>
-        <input id="fontScale" type="range" min="88" max="118" value="100" />
+    <details class="settings">
+      <summary>设置 / 备份</summary>
+      <div class="settings-grid">
+        <label class="scale-control">
+          <span>显示大小</span>
+          <input id="fontScale" type="range" min="82" max="116" value="100" />
+        </label>
+        <button id="backupBtn" class="btn soft">导出备份</button>
+        <label class="btn soft import-btn">
+          导入备份
+          <input id="importBackupInput" type="file" accept="application/json" hidden />
+        </label>
+        <div class="save-state">
+          <span>自动保存</span>
+          <strong id="saveState">已保存</strong>
+        </div>
       </div>
-      <div>
-        <span>自动保存</span>
-        <strong id="saveState">已保存</strong>
-      </div>
-    </section>
+    </details>
 
-    <section id="captureArea" class="board">
-      <div class="board-title">
-        <div class="side-title income-title">收入</div>
-        <div class="side-title expense-title">支出</div>
+    <section id="tableMode" class="table-card">
+      <div class="group-head">
+        <div class="income-title">收入</div>
+        <div class="expense-title">支出</div>
       </div>
 
-      <div class="table-head">
-        <div contenteditable="true" id="incomeNameLabel" spellcheck="false">姓名</div>
-        <div contenteditable="true" id="incomeMoneyLabel" spellcheck="false">金额</div>
-        <div contenteditable="true" id="expenseNameLabel" spellcheck="false">姓名</div>
-        <div contenteditable="true" id="expenseMoneyLabel" spellcheck="false">金额</div>
-        <div contenteditable="true" id="statusLabel" spellcheck="false">状态</div>
+      <div class="grid-head">
+        <div id="incomeNameLabel" contenteditable="true" spellcheck="false">姓名</div>
+        <div id="incomeMoneyLabel" contenteditable="true" spellcheck="false">金额</div>
+        <div id="expenseNameLabel" contenteditable="true" spellcheck="false">姓名</div>
+        <div id="expenseMoneyLabel" contenteditable="true" spellcheck="false">金额</div>
       </div>
 
-      <div id="rows" class="rows"></div>
+      <div id="tableRows" class="table-rows"></div>
 
-      <footer class="total-bar">
+      <footer class="totals">
         <div>
           <span>收入</span>
           <strong id="totalIncome">0</strong>
@@ -79,9 +81,16 @@
       </footer>
     </section>
 
-    <section class="notice">
-      <strong>本地保存说明：</strong>
-      数据会同时保存到 IndexedDB 与 localStorage，刷新页面、关闭浏览器、重新打开桌面图标后仍会保留。清除浏览器网站数据或更换域名时，数据可能消失。重要数据建议定期“导出备份”。
+    <section id="verticalMode" class="vertical-card">
+      <div class="vertical-title">
+        <strong>纵向输入</strong>
+        <span>适合手机快速录入</span>
+      </div>
+      <div id="verticalRows" class="vertical-rows"></div>
+    </section>
+
+    <section class="note">
+      数据保存到 IndexedDB 与 localStorage。刷新或关闭浏览器不会丢失；清除网站数据、更换域名或无痕模式可能丢失。金额栏支持：100+20、500-75、12*3、1000/4、100×3、1000÷4。
     </section>
   </main>
 
@@ -89,7 +98,7 @@
     <div class="dialog-card">
       <header>
         <h3>凭证图片</h3>
-        <button id="closeImageDialog" class="icon-btn">×</button>
+        <button id="closeImageDialog" class="icon-only">×</button>
       </header>
       <img id="previewImage" alt="凭证图片" />
     </div>
