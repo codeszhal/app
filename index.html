@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>收支记录</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <meta name="theme-color" content="#0f172a" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">财务计算器 · Finance Calculator</p>
+        <h1>收支记录</h1>
+        <p class="subtitle">表格可直接编辑，收入与支出会自动合计。</p>
+      </div>
+      <div id="statusBadge" class="status-badge success">SUCCESS</div>
+    </header>
+
+    <section class="layout">
+      <section class="table-card">
+        <div class="section-head">
+          <div>
+            <h2>明细表</h2>
+            <p>Nama, uang masuk, dan uang keluar.</p>
+          </div>
+          <div class="actions">
+            <button id="addRowBtn" class="btn primary">添加行</button>
+            <button id="addColumnBtn" class="btn secondary">添加列</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table id="financeTable">
+            <thead>
+              <tr id="tableHeader">
+                <th>姓名</th>
+                <th>收入</th>
+                <th>支出</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+            <tfoot>
+              <tr>
+                <td>合计</td>
+                <td id="footerIncome">0</td>
+                <td id="footerExpense">0</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <section id="checkCard" class="check-card success">
+          <span id="checkIcon">✓</span>
+          <div>
+            <strong id="checkTitle">SUCCESS</strong>
+            <p id="checkMessage">左右合计一致 / Total kanan dan kiri cocok.</p>
+          </div>
+        </section>
+
+        <section class="summary-card">
+          <h2>自动合计</h2>
+          <div class="summary-row">
+            <span>总收入</span>
+            <strong id="summaryIncome">0</strong>
+          </div>
+          <div class="summary-row">
+            <span>总支出</span>
+            <strong id="summaryExpense">0</strong>
+          </div>
+          <div class="summary-row balance">
+            <span>余额 / Saldo</span>
+            <strong id="summaryBalance">0</strong>
+          </div>
+        </section>
+
+        <section class="tool-card">
+          <h2>操作</h2>
+          <button id="resetBtn" class="btn danger full">恢复默认模板</button>
+          <button id="clearNumberBtn" class="btn ghost full">清空金额</button>
+          <p class="note">Data tersimpan otomatis di browser HP.</p>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <dialog id="rowDialog">
+    <form method="dialog" class="dialog-box">
+      <h3>添加行 / Tambah Baris</h3>
+      <label>姓名 / Nama</label>
+      <input id="newRowName" type="text" placeholder="输入姓名" />
+      <div class="dialog-actions">
+        <button value="cancel" class="btn ghost">取消</button>
+        <button id="confirmAddRow" value="default" class="btn primary">保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="columnDialog">
+    <form method="dialog" class="dialog-box">
+      <h3>添加列 / Tambah Kolom</h3>
+      <label>列名 / Nama Kolom</label>
+      <input id="newColumnName" type="text" placeholder="例如：备注" />
+      <div class="dialog-actions">
+        <button value="cancel" class="btn ghost">取消</button>
+        <button id="confirmAddColumn" value="default" class="btn primary">保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
