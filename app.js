@@ -815,3 +815,79 @@ async function init() {
 }
 
 init();
+
+
+/* ===== v9 visible operator bar logic ===== */
+let activeMoneyInput = null;
+
+function setActiveMoneyInput(input) {
+  activeMoneyInput = input;
+}
+
+function insertToActiveMoneyInput(text) {
+  if (!activeMoneyInput) {
+    alert("请先点击金额输入框。");
+    return;
+  }
+
+  activeMoneyInput.focus();
+
+  const start = activeMoneyInput.selectionStart ?? activeMoneyInput.value.length;
+  const end = activeMoneyInput.selectionEnd ?? activeMoneyInput.value.length;
+  const value = activeMoneyInput.value;
+
+  activeMoneyInput.value = value.slice(0, start) + text + value.slice(end);
+
+  const next = start + text.length;
+  activeMoneyInput.selectionStart = next;
+  activeMoneyInput.selectionEnd = next;
+
+  activeMoneyInput.dispatchEvent(new Event("input", { bubbles: true }));
+}
+
+function backspaceActiveMoneyInput() {
+  if (!activeMoneyInput) {
+    alert("请先点击金额输入框。");
+    return;
+  }
+
+  activeMoneyInput.focus();
+
+  let start = activeMoneyInput.selectionStart ?? activeMoneyInput.value.length;
+  let end = activeMoneyInput.selectionEnd ?? activeMoneyInput.value.length;
+  const value = activeMoneyInput.value;
+
+  if (start === end && start > 0) {
+    activeMoneyInput.value = value.slice(0, start - 1) + value.slice(end);
+    start -= 1;
+  } else {
+    activeMoneyInput.value = value.slice(0, start) + value.slice(end);
+  }
+
+  activeMoneyInput.selectionStart = start;
+  activeMoneyInput.selectionEnd = start;
+
+  activeMoneyInput.dispatchEvent(new Event("input", { bubbles: true }));
+}
+
+document.addEventListener("focusin", (event) => {
+  if (event.target.classList && event.target.classList.contains("money-input")) {
+    setActiveMoneyInput(event.target);
+  }
+});
+
+document.addEventListener("pointerdown", (event) => {
+  const button = event.target.closest && event.target.closest("#calcToolbar button");
+  if (!button) return;
+
+  event.preventDefault();
+
+  if (button.dataset.op) {
+    insertToActiveMoneyInput(button.dataset.op);
+    return;
+  }
+
+  if (button.id === "calcBackspace") {
+    backspaceActiveMoneyInput();
+  }
+});

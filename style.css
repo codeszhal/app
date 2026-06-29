@@ -640,3 +640,83 @@ body.compact .icon-btn {
   .cell input { font-size: .78rem; padding: 0 4px; }
   .pill { max-width: 160px; font-size: .6rem; }
 }
+
+
+/* ===== v9 visible operator bar: always shown, not hidden behind mobile keyboard ===== */
+.calc-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 5px;
+
+  margin: 0 0 7px;
+  padding: 6px;
+
+  background: rgba(255, 255, 255, .96);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 10px 22px rgba(15, 23, 42, .08);
+  backdrop-filter: blur(12px);
+}
+
+.calc-toolbar button {
+  height: 32px;
+  min-width: 0;
+  border: 0;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #0f172a;
+  font: inherit;
+  font-size: .92rem;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+.calc-toolbar button:active {
+  transform: translateY(1px);
+  background: #e2e8f0;
+}
+
+.calc-toolbar button[data-op="+"] ,
+.calc-toolbar button[data-op="-"] ,
+.calc-toolbar button[data-op="*"] ,
+.calc-toolbar button[data-op="/"] {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+#calcBackspace {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+body.compact .calc-toolbar {
+  gap: 4px;
+  padding: 5px;
+  border-radius: 12px;
+}
+
+body.compact .calc-toolbar button {
+  height: 28px;
+  border-radius: 8px;
+  font-size: .82rem;
+}
+
+@media (max-width: 430px) {
+  .calc-toolbar {
+    gap: 4px;
+    padding: 5px;
+    margin-bottom: 6px;
+    border-radius: 13px;
+  }
+
+  .calc-toolbar button {
+    height: 30px;
+    border-radius: 9px;
+    font-size: .86rem;
+  }
+}
+

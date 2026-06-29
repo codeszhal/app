@@ -1,4 +1,4 @@
-const CACHE_NAME = "recon-iphone-table-v8-20260630";
+const CACHE_NAME = "recon-iphone-table-v9-visible-operator-bar-20260630";
 
 self.addEventListener("install", event => {
   self.skipWaiting();
