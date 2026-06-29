@@ -1,0 +1,11 @@
+{
+  "name": "收支核对",
+  "short_name": "核对",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef2f8",
+  "theme_color": "#0f172a",
+  "description": "收入支出核对工具",
+  "icons": []
+}

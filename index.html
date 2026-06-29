@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>收支核对</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="收支核对" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <p class="kicker">MONEY RECONCILIATION</p>
+        <h1 contenteditable="true" id="appTitle" spellcheck="false">收支核对</h1>
+        <p class="subtitle">记录收入来源与支出去向，自动核对金额是否一致。</p>
+      </div>
+      <div id="topStatus" class="top-status success">
+        <span id="topStatusText">成功</span>
+        <small id="topStatusSub">收入与支出一致</small>
+      </div>
+    </header>
+
+    <section class="toolbar">
+      <button id="addRowBtn" class="btn primary">＋添加行</button>
+      <button id="saveImageBtn" class="btn dark">保存图片</button>
+      <button id="backupBtn" class="btn soft">导出备份</button>
+      <label class="btn soft file-label">
+        导入备份
+        <input id="importBackupInput" type="file" accept="application/json" hidden />
+      </label>
+      <button id="toggleDensityBtn" class="btn soft">紧凑模式</button>
+    </section>
+
+    <section class="settings-card">
+      <div>
+        <span>显示大小</span>
+        <input id="fontScale" type="range" min="88" max="118" value="100" />
+      </div>
+      <div>
+        <span>自动保存</span>
+        <strong id="saveState">已保存</strong>
+      </div>
+    </section>
+
+    <section id="captureArea" class="board">
+      <div class="board-title">
+        <div class="side-title income-title">收入</div>
+        <div class="side-title expense-title">支出</div>
+      </div>
+
+      <div class="table-head">
+        <div contenteditable="true" id="incomeNameLabel" spellcheck="false">姓名</div>
+        <div contenteditable="true" id="incomeMoneyLabel" spellcheck="false">金额</div>
+        <div contenteditable="true" id="expenseNameLabel" spellcheck="false">姓名</div>
+        <div contenteditable="true" id="expenseMoneyLabel" spellcheck="false">金额</div>
+        <div contenteditable="true" id="statusLabel" spellcheck="false">状态</div>
+      </div>
+
+      <div id="rows" class="rows"></div>
+
+      <footer class="total-bar">
+        <div>
+          <span>收入</span>
+          <strong id="totalIncome">0</strong>
+        </div>
+        <div>
+          <span>支出</span>
+          <strong id="totalExpense">0</strong>
+        </div>
+        <div id="diffBox">
+          <span>差额</span>
+          <strong id="difference">0</strong>
+        </div>
+      </footer>
+    </section>
+
+    <section class="notice">
+      <strong>本地保存说明：</strong>
+      数据会同时保存到 IndexedDB 与 localStorage，刷新页面、关闭浏览器、重新打开桌面图标后仍会保留。清除浏览器网站数据或更换域名时，数据可能消失。重要数据建议定期“导出备份”。
+    </section>
+  </main>
+
+  <dialog id="imageDialog">
+    <div class="dialog-card">
+      <header>
+        <h3>凭证图片</h3>
+        <button id="closeImageDialog" class="icon-btn">×</button>
+      </header>
+      <img id="previewImage" alt="凭证图片" />
+    </div>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
