@@ -16,7 +16,7 @@
     <header class="topbar">
       <div>
         <h1 id="appTitle" contenteditable="true" spellcheck="false">收支核对</h1>
-        <p>四列同屏 · 手机竖屏表格</p>
+        <p>三列同屏 · 收入热钱快速流出</p>
       </div>
       <div id="globalStatus" class="status-chip ok">
         <strong id="globalStatusText">成功</strong>
@@ -45,76 +45,54 @@
     <details class="settings">
       <summary>设置 / 备份</summary>
       <div class="settings-grid">
-        <label class="scale-control">
-          <span>显示大小</span>
-          <input id="fontScale" type="range" min="82" max="116" value="100" />
-        </label>
+        <label class="scale-control"><span>显示大小</span><input id="fontScale" type="range" min="78" max="126" value="100" /></label>
         <button id="backupBtn" class="btn soft">导出备份</button>
-        <label class="btn soft import-btn">
-          导入备份
-          <input id="importBackupInput" type="file" accept="application/json" hidden />
-        </label>
-        <div class="save-state">
-          <span>自动保存</span>
-          <strong id="saveState">已保存</strong>
-        </div>
+        <label class="btn soft import-btn">导入备份<input id="importBackupInput" type="file" accept="application/json" hidden /></label>
+        <div class="save-state"><span>自动保存</span><strong id="saveState">已保存</strong></div>
       </div>
     </details>
 
     <section id="tableMode" class="table-card">
-      <div class="group-head">
-        <div class="income-title">收入</div>
-        <div class="expense-title">支出</div>
-      </div>
-
+      <div class="group-head"><div class="income-title">收入</div><div class="expense-title">支出</div></div>
       <div class="grid-head">
         <div id="incomeNameLabel" contenteditable="true" spellcheck="false">姓名</div>
         <div id="incomeMoneyLabel" contenteditable="true" spellcheck="false">金额</div>
+        <div id="incomeTotalLabel" contenteditable="true" spellcheck="false">合计</div>
         <div id="expenseNameLabel" contenteditable="true" spellcheck="false">姓名</div>
         <div id="expenseMoneyLabel" contenteditable="true" spellcheck="false">金额</div>
+        <div id="expenseTotalLabel" contenteditable="true" spellcheck="false">合计</div>
       </div>
-
       <div id="tableRows" class="table-rows"></div>
-
       <footer class="totals">
-        <div>
-          <span>收入</span>
-          <strong id="totalIncome">0</strong>
-        </div>
-        <div>
-          <span>支出</span>
-          <strong id="totalExpense">0</strong>
-        </div>
-        <div id="diffBox">
-          <span>差额</span>
-          <strong id="difference">0</strong>
-        </div>
+        <div><span>收入</span><strong id="totalIncome">0</strong></div>
+        <div><span>支出</span><strong id="totalExpense">0</strong></div>
+        <div id="diffBox"><span>差额</span><strong id="difference">0</strong></div>
       </footer>
     </section>
 
     <section id="verticalMode" class="vertical-card">
-      <div class="vertical-title">
-        <strong>纵向输入</strong>
-        <span>适合手机快速录入</span>
-      </div>
+      <div class="vertical-title"><strong>纵向输入</strong><span>适合手机快速录入</span></div>
       <div id="verticalRows" class="vertical-rows"></div>
     </section>
 
-    <section class="note">
-      数据保存到 IndexedDB 与 localStorage。刷新或关闭浏览器不会丢失；清除网站数据、更换域名或无痕模式可能丢失。金额栏支持：100+20、500-75、12*3、1000/4、100×3、1000÷4。
+    <section class="telegram-card">
+      <div class="section-title"><strong>Telegram 发送</strong><span>选择用户或发送给全部</span></div>
+      <div class="telegram-grid">
+        <label><span>用户</span><select id="telegramUser"><option value="12345678989">Lobeng · 12345678989</option><option value="9876543219">Ocha · 9876543219</option></select></label>
+        <label><span>Bot Token</span><input id="telegramToken" type="password" placeholder="输入 Bot Token，不要写进代码" /></label>
+        <button id="sendSelectedBtn" class="btn primary">发送给选中</button>
+        <button id="sendAllBtn" class="btn dark">发送给全部</button>
+        <button id="copyPayloadBtn" class="btn soft">复制内容</button>
+      </div>
+      <textarea id="telegramPreview" class="telegram-preview" readonly></textarea>
+      <p id="telegramStatus" class="telegram-status">提示：Telegram 用户必须先打开并开始你的 Bot，否则 Bot API 无法主动发送。</p>
     </section>
+
+    <section class="note">金额栏是文本输入，保留原始写法，不会被替换；合计栏只显示计算结果。金额支持：100+20、500-75、12*3、1000/4、100×3、1000÷4。末尾的等号、多空格、多行会自动清理后计算。无法计算时，合计栏显示错误，但保留上一次有效金额。</section>
   </main>
 
-  <dialog id="imageDialog">
-    <div class="dialog-card">
-      <header>
-        <h3>凭证图片</h3>
-        <button id="closeImageDialog" class="icon-only">×</button>
-      </header>
-      <img id="previewImage" alt="凭证图片" />
-    </div>
-  </dialog>
-
+  <dialog id="exprDialog"><div class="dialog-card"><header><h3 id="exprDialogTitle">金额详情</h3><button id="closeExprDialog" class="icon-only">×</button></header><textarea id="exprDialogText" spellcheck="false"></textarea><button id="saveExprDialog" class="btn primary full">保存</button></div></dialog>
+  <dialog id="imageDialog"><div class="dialog-card"><header><h3>凭证图片</h3><button id="closeImageDialog" class="icon-only">×</button></header><img id="previewImage" alt="凭证图片" /></div></dialog>
   <script src="app.js"></script>
 </body>
 </html>
