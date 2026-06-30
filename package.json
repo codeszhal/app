@@ -1,0 +1,12 @@
+{
+  "name": "kalkulator-keuangan-pwa",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:ui": "playwright test",
+    "test:telegram": "node tests/telegram-smoke.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.45.0"
+  }
+}
