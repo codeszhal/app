@@ -1,11 +1,34 @@
-收支核对 PWA v10 - 3 Columns + Telegram
+收支核对 PWA v12 - Live Watchdog + Clean UI
 
-- 每个 section 是三列：姓名 | 金额 | 合计。
-- 收入 = 热色；支出 = 冷色。
-- 金额栏保存原始输入，不会被替换；合计栏显示计算结果。
-- 金额支持 + - * / × ÷，末尾等号、多空格、多行都可处理。
-- 金额无法计算时，合计栏给出错误视觉，但保留上一次有效金额。
-- 金额栏有“全”查看/编辑长文本，有“发”发送该侧到 Telegram。
-- Telegram 支持 Lobeng/Ocha、发送给选中、发送给全部、复制内容。
-- 真正发送需要填写 Bot Token。不要把 Bot Token hardcode 到 public repo。
-- PWA ready: index.html, style.css, app.js, manifest.json, service-worker.js。
+Revisi:
+1. Tombol kecil di kolom 金额 dihapus:
+   - 全 dihapus
+   - 发 dihapus
+2. Tombol upload/view gambar per baris dihapus:
+   - 图 dihapus
+   - 看 dihapus
+   - tombol delete × tetap ada
+3. Kalkulasi live diperkuat:
+   - oninput
+   - onkeyup
+   - onchange
+   - onpaste
+   - onblur
+   - safety watchdog setiap 2 detik
+4. Jika user mengetik tanpa event final, sistem tetap melakukan re-check otomatis tiap 2 detik.
+5. Telegram contacts:
+   - Lobeng: 5137608953
+   - Ocha: 5817507946
+   - Faisal: 6201817840
+
+Catatan keamanan:
+- Bot Token TIDAK di-hardcode ke file frontend karena repository/public PWA akan mengekspos token.
+- Paste token sekali di field Bot Token; aplikasi menyimpannya di localStorage browser.
+- Karena token sudah pernah dibagikan di chat, sebaiknya rotate/revoke token di BotFather sebelum production.
+
+Replace:
+- index.html
+- style.css
+- app.js
+- manifest.json
+- service-worker.js

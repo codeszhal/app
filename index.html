@@ -78,7 +78,11 @@
     <section class="telegram-card">
       <div class="section-title"><strong>Telegram 发送</strong><span>选择用户或发送给全部</span></div>
       <div class="telegram-grid">
-        <label><span>用户</span><select id="telegramUser"><option value="12345678989">Lobeng · 12345678989</option><option value="9876543219">Ocha · 9876543219</option></select></label>
+        <label><span>用户</span><select id="telegramUser">
+            <option value="5137608953">Lobeng · 5137608953</option>
+            <option value="5817507946">Ocha · 5817507946</option>
+            <option value="6201817840">Faisal · 6201817840</option>
+          </select></label>
         <label><span>Bot Token</span><input id="telegramToken" type="password" placeholder="输入 Bot Token，不要写进代码" /></label>
         <button id="sendSelectedBtn" class="btn primary">发送给选中</button>
         <button id="sendAllBtn" class="btn dark">发送给全部</button>
@@ -88,11 +92,10 @@
       <p id="telegramStatus" class="telegram-status">提示：Telegram 用户必须先打开并开始你的 Bot，否则 Bot API 无法主动发送。</p>
     </section>
 
-    <section class="note">金额栏是文本输入，保留原始写法，不会被替换；合计栏只显示计算结果。金额支持：100+20、500-75、12*3、1000/4、100×3、1000÷4。末尾的等号、多空格、多行会自动清理后计算。无法计算时，合计栏显示错误，但保留上一次有效金额。</section>
+    <section class="note">金额栏是文本输入，保留原始写法，不会被替换；合计栏会实时计算，并每 2 秒自动复核一次。金额支持：100+20、500-75、12*3、1000/4、100×3、1000÷4。末尾的等号、多空格、多行会自动清理后计算。无法计算时，合计栏显示错误，但保留上一次有效金额。</section>
   </main>
 
   <dialog id="exprDialog"><div class="dialog-card"><header><h3 id="exprDialogTitle">金额详情</h3><button id="closeExprDialog" class="icon-only">×</button></header><textarea id="exprDialogText" spellcheck="false"></textarea><button id="saveExprDialog" class="btn primary full">保存</button></div></dialog>
-  <dialog id="imageDialog"><div class="dialog-card"><header><h3>凭证图片</h3><button id="closeImageDialog" class="icon-only">×</button></header><img id="previewImage" alt="凭证图片" /></div></dialog>
   <script src="app.js"></script>
 </body>
 </html>
